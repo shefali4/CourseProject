@@ -1,23 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
 
 function App() {
+
+  const [url, setUrl] = useState();
+
+  useEffect(() => {
+    const queryInfo = {active: true, lastFocusedWindow: true}
+
+    chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
+      const url = tabs[0].url;
+      setUrl(url);
+    })
+  })
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h4>Page Mark</h4>
       </header>
+      <body>
+        <p> URL: </p>
+        <p> {url} </p>
+      </body>
     </div>
   );
 }
