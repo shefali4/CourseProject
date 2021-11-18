@@ -7,15 +7,18 @@ export default function Site() {
     
     const [site, setSite] = useState();
     const [urlList, seturlList] = useState([]);
+    const [urlTitle, seturlTitle] = useState([]);
 
     useEffect(() => {
         const queryInfo = {active: true, lastFocusedWindow: true};
 
         chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
             const url = tabs[0].url;
+            const title = tabs[0].title;
             if (url) {
                 const newItem = {
-                    url: url
+                    url: url,
+                    title: title
                 }
                 setSite(newItem);
             }
@@ -23,7 +26,8 @@ export default function Site() {
     }, []);
 
     function addURL(e) {
-        if (urlList.filter(function(v) {return v.url !== site.url}) ) {
+        if (urlList.filter(function(v) {return v.url !== site.url})) {
+            seturlTitle([...urlTitle, site]);
             seturlList([...urlList, site]);
         }
         e.preventDefault();
@@ -37,7 +41,7 @@ export default function Site() {
             <ul>
                 {urlList && urlList.map((item,id) => (
                     <div key={id}>
-                    <li> {item.url} </li>
+                        <li>{item.title} {item.url}</li>
                     </div>
                 ))}
             </ul>
