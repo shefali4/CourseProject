@@ -7,8 +7,6 @@ export default function Site() {
     
     const [site, setSite] = useState();
     const [urlList, seturlList] = useState([]);
-    const [urlTitle, seturlTitle] = useState([]);
-    const [urlIcon, seturlIcon] = useState([]);
 
     useEffect(() => {
         const queryInfo = {active: true, lastFocusedWindow: true};
@@ -31,12 +29,20 @@ export default function Site() {
     }, []);
 
     function addURL(e) {
-        if (urlList.filter(function(v) {return v.url !== site.url})) {
-            seturlTitle([...urlTitle, site]);
+
+        if ( urlList.filter(function(v) {return v.url === site.url}) ) {
             seturlList([...urlList, site]);
-            seturlIcon([...urlIcon, site]);
-        }
+            // chrome.storage.local.set(urlList)
+        } 
+        
         e.preventDefault();
+    }
+
+    function del(e) {
+
+        urlList.splice(urlList.findIndex(x => x.id === e.target.value), 1);
+
+        e.preventDefault()
     }
 
     return (
@@ -44,17 +50,20 @@ export default function Site() {
             <form onSubmit={addURL}>
                 <button type="submit" className="save-button">+</button>
             </form>
-            <ul>
-                {urlList && urlList.map((item,id) => (
+            <div className="ent">
+                {urlList && urlList.map((item, id) => (
                     <a className="hyperlink" href={item.url} target="_blank" >
                         <div onClick={item.url} className="entry" key={id}>
-                            <img className="favicon-img" src={item.fav}/>
-                            <b className="entry-text">{item.title} </b>
-                            <p className="entry-text">{item.url}</p>
+                            <div className="prof">
+                                <img className="favicon-img" src={item.fav}/>
+                                <b className="title"> {item.title} </b>
+                                {/* <from onSubmit={del(e)} value={item.url}><button type="submit" className="save-button">-</button> </from> */}
+                            </div>
+                            <p> {item.url} </p>
                         </div>
                     </a>
                 ))}
-            </ul>
+            </div>
         </div>
     );  
 };

@@ -1,28 +1,52 @@
 .save-button {
-    width: 30px;
-    height: 30px;
-    margin: 15px 20px;
-    border-radius: 50%;
-    text-align: center;
-  }
-
-.entry {
-  border-color: black;
-  border-radius: 5%;
-  background-color: #ebebeb;
-  text-align: left;
+  width: 30px;
+  height: 30px;
+  margin: 15px 20px;
+  border-radius: 50%;
+  text-align: center;
 }
 
-.entry-text {
-  text-align: left;
-}
-
-.favicon-img {
-  height:20px;
-  width:20px; 
+.ent {
+  display: flex;
+  flex-flow: column nowrap;
+  // border-radius: 35px;
+  padding: 12px;
+  gap:5px;
 }
 
 .hyperlink {
   text-decoration: none;
   color: black;
+
+  .prof{
+    display: inline-flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+
+  .entry {
+    border-color: black;
+    border-radius: 5%;
+    background-color: #ebebeb;
+    text-align: left;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 12px;
+
+    .favicon-img {
+      height: 30px;
+      width: 30px; 
+      padding: 5px;
+      object-fit: cover;
+    }
+
+    .title {
+      text-align: left;
+    }
+  }
 }
+
+
+
+
+

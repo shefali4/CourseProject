@@ -11,7 +11,8 @@
 
   },
   "background": {
-    "scripts": [ "background.js"]
+    "scripts": [ "background.js"],
+    "persistent": false
   },
   "content_scripts": [{
     "matches": ["<all_urls>"],
@@ -21,7 +22,10 @@
     ],
     "run_at": "document_end"
   }],
-  "permissions" : ["activeTab"],
+  "permissions" : [
+    "activeTab",
+    "contextMenus"
+  ],
   "optional_permissions": [
     "<all_urls>"
   ]
