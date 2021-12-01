@@ -6,7 +6,7 @@ import './ReadingList.scss'
 export default function Site() {
   
     let myLeads = []
-    const leadsFromLocalStorage = JSON.parse( localStorage.getItem("myLeads") )
+    const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 
     // Gets previously stored links and renders it
     window.addEventListener("load", function (){
@@ -16,19 +16,15 @@ export default function Site() {
         }
     })
 
-
-    // TO DO: allow user to delete individual links
-    let deleteBtn = document.querySelectorAll(".btn-close")
-
     //TO DO: find document summary/most frequent words, description, extracting important content from pages bookmarked
-
 
 
 
     useEffect(() => {
         const queryInfo = {active: true, lastFocusedWindow: true};
+    });
 
-    // Adds URL to list
+        // Adds URL to list
     function addURL(){    
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
             const newItem = {
@@ -48,7 +44,7 @@ export default function Site() {
         myLeads = []
         render(myLeads)
     }
-        
+    
     // Render function
     function render(leads) {
         let listItems = ""
@@ -69,7 +65,7 @@ export default function Site() {
         }
         document.getElementById("ul-el").innerHTML = listItems   
     }
-    
+
     return (
         <div>
             <button onClick={addURL} className="save-button" type="submit" >+</button>
@@ -77,6 +73,4 @@ export default function Site() {
             <ul id="ul-el" class="list-group"></ul>
         </div>
     );
-    
-    }
-)};
+}
