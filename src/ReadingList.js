@@ -6,41 +6,26 @@ import './ReadingList.scss'
 export default function Site() {
     
     const [myLeads, setMyLeads] = useState([])
-    const [site, setSite] = useState();
 
-    const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
-
-    // Gets previously stored links and renders it
-    window.addEventListener("load", function (){
-        console.log("leadfromloc ", leadsFromLocalStorage)
-        if (leadsFromLocalStorage) {
-            setMyLeads(leadsFromLocalStorage)
-        }
+    window.addEventListener("load", function () {
+        setMyLeads(JSON.parse(localStorage.getItem('myLeads')) || [])
     })
+    
 
     useEffect(() => {
-        const queryInfo = {active: true, lastFocusedWindow: true};
-
-        chrome.tabs && chrome.tabs.query(queryInfo, tabs => {
-            const url = tabs[0].url;
-            const title = tabs[0].title;
-            const fav="http://www.google.com/s2/favicons?domain="+url;
-            if (url) {
-                const newItem = {
-                    url: url,
-                    title: title,
-                    fav: fav
-                }
-                setSite(newItem);
-            }
-        });
-    }, []);
+        window.localStorage.setItem("myLeads", JSON.stringify(myLeads))
+    }, [myLeads]);
 
     // Adds URL to list
-    function addURL(e) {    
-        setMyLeads([...myLeads, site] , console.log(myLeads))
-        // console.log("currleads ", myLeads)
-        localStorage.setItem("myLeads", JSON.stringify(myLeads) )
+    function addURL(e) { 
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            const newItem = {
+                url: tabs[0].url,
+                title: tabs[0].title,
+                fav: "http://www.google.com/s2/favicons?domain="+tabs[0].url,
+            }
+            setMyLeads([...myLeads, newItem])
+        })
         e.preventDefault();
     }
 
@@ -49,27 +34,6 @@ export default function Site() {
         localStorage.clear()
         setMyLeads([])
     }
-    
-    // Render function
-    // function render(leads) {
-    //     let listItems = ""
-    //     for (let i = 0; i < leads.length; i++) {
-    //         listItems += `
-    //         <div className="ent">
-    //             <a className="hyperlink" target='_blank' href='${leads[i].url}'>
-    //                 <div className="entry">
-    //                     <div className="prof">
-    //                         <b className="title"> ${leads[i].title} </b>
-    //                     </div>
-    //                     <p> ${leads[i].url} </p>
-    //                 </div>
-    //             </a>
-    //             <button type="button" class="btn-close float-end" aria-label="Close">X</button>
-    //         </div>
-    //         `
-    //     }
-    //     document.getElementById("ul-el").innerHTML = listItems   
-    // }
 
     return (
         <div>
