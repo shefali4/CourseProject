@@ -11,12 +11,9 @@ export default function Site() {
     window.addEventListener("load", function () {
         setMyLeads(JSON.parse(localStorage.getItem('myLeads')) || [])
     })
-    
 
     useEffect(() => {
         window.localStorage.setItem("myLeads", JSON.stringify(myLeads))
-        
-       
 
     }, [myLeads]);
 
@@ -29,9 +26,8 @@ export default function Site() {
                 title: tabs[0].title,
                 fav: "http://www.google.com/s2/favicons?domain="+tabs[0].url,
             }
-            console.log(typeof (localStorage.getItem('myLeads')))
-            if (!((JSON.parse(localStorage.getItem('myLeads'))).includes(newItem.url))){
-                console.log(newItem.url)
+            
+            if (!(myLeads.map(a => a.url)).includes(newItem.url)){
                 setMyLeads([...myLeads, newItem])
             }
         })
