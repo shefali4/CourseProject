@@ -6,6 +6,7 @@ import './ReadingList.scss'
 export default function Site() {
     
     const [myLeads, setMyLeads] = useState([])
+    // const [site, setSite] = useState()
 
     window.addEventListener("load", function () {
         setMyLeads(JSON.parse(localStorage.getItem('myLeads')) || [])
@@ -14,17 +15,25 @@ export default function Site() {
 
     useEffect(() => {
         window.localStorage.setItem("myLeads", JSON.stringify(myLeads))
+        
+       
+
     }, [myLeads]);
 
     // Adds URL to list
     function addURL(e) { 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             const newItem = {
-                url: shortenURL(tabs[0].url),
+                shorturl: shortenURL(tabs[0].url),
+                url: tabs[0].url,
                 title: tabs[0].title,
                 fav: "http://www.google.com/s2/favicons?domain="+tabs[0].url,
             }
-            setMyLeads([...myLeads, newItem])
+            console.log(typeof (localStorage.getItem('myLeads')))
+            if (!((JSON.parse(localStorage.getItem('myLeads'))).includes(newItem.url))){
+                console.log(newItem.url)
+                setMyLeads([...myLeads, newItem])
+            }
         })
         e.preventDefault();
     }
@@ -33,6 +42,13 @@ export default function Site() {
     function deleteAllURL() {
         localStorage.clear()
         setMyLeads([])
+    }
+
+    function deleteSingle(e) {
+        setMyLeads(myLeads.filter(function(v) { 
+            return v.url !== e.target.value })
+        )
+        
     }
 
     function shortenURL(url) {
@@ -45,15 +61,20 @@ export default function Site() {
             <button onClick={deleteAllURL} id="delete-btn" type="button" >DELETE ALL</button>
             <div className="ent">
                 {myLeads && myLeads.map((item, id) => (
-                    <a className="hyperlink" target='_blank' href={item.url}>
-                        <div onClick={item.url} className="entry" key={id}>
-                            <div className="prof">
-                                <img className="favicon-img" src={item.fav}/>
-                                <b className="title"> {item.title} </b>
+                    <div className="withb">
+                        <a className="hyperlink" target='_blank' href={item.url}>
+                            <div onClick={item.url} className="entry" key={id}>
+                                <div className="prof">
+                                    <img className="favicon-img" src={item.fav}/>
+                                    <div className="ti">
+                                        <b className="title"> {item.title} </b>
+                                        <p> {item.shorturl} </p>
+                                    </div>
+                                </div>
                             </div>
-                            <p> {item.url} </p>
-                        </div>
-                    </a>
+                        </a>
+                        <button value={item.url} onClick={deleteSingle} type="button" className="but" aria-label="Close">X</button>
+                    </div>
                 ))}
             </div>
         </div>

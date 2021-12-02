@@ -9,42 +9,69 @@
 .ent {
   display: flex;
   flex-flow: column nowrap;
-  // border-radius: 35px;
   padding: 12px;
   gap:5px;
-}
+  border-radius: 5%;
 
-.hyperlink {
-  text-decoration: none;
-  color: black;
-
-  .prof{
-    display: inline-flex;
-    flex-flow: row nowrap;
-    align-items: center;
-  }
-
-  .entry {
-    border-color: black;
-    border-radius: 5%;
-    background-color: #ebebeb;
-    text-align: left;
+  .withb{
     display: flex;
-    flex-flow: column nowrap;
-    padding: 12px;
+    flex-flow: row nowrap;
+    justify-content: space-between;
 
-    .favicon-img {
-      height: 30px;
-      width: 30px; 
-      padding: 5px;
-      object-fit: cover;
+    .hyperlink {
+      text-decoration: none;
+      color: black;
+      width: 100%;
+    
+      .entry {
+        text-align: left;
+        background-color: #ebebeb;
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 12px;
+
+        .prof{
+          display: inline-flex;
+          flex-flow: row nowrap;
+          align-items: center;
+
+          .favicon-img {
+            height: 30px;
+            width: 30px; 
+            padding: 5px;
+            object-fit: cover;
+          }
+      
+          .ti {
+            display: flex;
+            flex-flow: column nowrap;
+    
+            .title {
+              text-align: left;
+            }
+          }
+        }
+      }
     }
 
-    .title {
-      text-align: left;
+    .but{
+      border: none;
+      background-color:#ebebeb;
+    }
+    .but:hover{
+      background-color:#b1b1b1;
     }
   }
 }
+
+.url {
+  padding-left:40px;
+}
+
+p {
+  margin: 0px;
+}
+
 
 
 
