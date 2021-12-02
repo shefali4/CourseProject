@@ -20,7 +20,7 @@ export default function Site() {
     function addURL(e) { 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             const newItem = {
-                url: tabs[0].url,
+                url: shortenURL(tabs[0].url),
                 title: tabs[0].title,
                 fav: "http://www.google.com/s2/favicons?domain="+tabs[0].url,
             }
@@ -35,6 +35,10 @@ export default function Site() {
         setMyLeads([])
     }
 
+    function shortenURL(url) {
+        return (new URL(url)).hostname;
+    }
+
     return (
         <div>
             <button onClick={addURL} className="save-button" type="submit" >+</button>
@@ -47,7 +51,7 @@ export default function Site() {
                                 <img className="favicon-img" src={item.fav}/>
                                 <b className="title"> {item.title} </b>
                             </div>
-                            {/* <p> {item.url} </p> */}
+                            <p> {item.url} </p>
                         </div>
                     </a>
                 ))}
