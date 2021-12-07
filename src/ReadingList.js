@@ -21,17 +21,30 @@ export default function Site() {
         code: `document.all[0].innerText`,
         allFrames: false, // this is the default
         runAt: 'document_start', // default is document_idle. See https://stackoverflow.com/q/42509273 for more details.
-    }, function(results) {
+    }, 
+    function(results) {
         // results.length must be 1
         var result = results[0];
         console.log(result)
         // process_result(result); --> Call the function that does BM25 Stuff on it
     });
+    //'<head><title>result</title></head><body><p>Some text, in a paragraph!</p></body>'
+    var htmlString = '<head><title>topic of page</title></head><body><p>Some text, in a paragraph!</p></body>',
+    html = document.createElement('html'),
+    frag = document.createDocumentFragment();
+    html.innerHTML = htmlString;
+    frag.appendChild(html);
+    
+    var titleText = frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText;
+    console.log(titleText)
+    
+    
 
     // Adds URL to list
     function addURL(e) { 
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             const newItem = {
+                titleText2: frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText,
                 shorturl: shortenURL(tabs[0].url),
                 url: tabs[0].url,
                 title: tabs[0].title,
@@ -46,17 +59,7 @@ export default function Site() {
         })
         e.preventDefault();
     }
-        //Trying to display Main Topics
-        //'
-        var htmlString = '<head><title>topic of page</title></head><body><p>Some text, in a paragraph!</p></body>',
-        html = document.createElement('html'),
-        frag = document.createDocumentFragment();
-        html.innerHTML = htmlString;
-        frag.appendChild(html);
-    
-        var titleText = frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText;
-        console.log(titleText)
-    
+        
         // //JAVASCRIPT parsing through the webpage 
         // const source = document.getElementById("source");
         // const textContentOutput = document.getElementById("textContentOutput");
@@ -98,6 +101,7 @@ export default function Site() {
                                         <p> {item.shorturl} </p>
                                     </div>
                                 </div>
+                                <a className="titleText"> {item.titleText2} </a>
                             </div>
                         </a>
                         <button value={item.url} onClick={deleteSingle} type="button" className="but" aria-label="Close">X</button>
