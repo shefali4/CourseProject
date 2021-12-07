@@ -41,11 +41,29 @@ export default function Site() {
             if (!(myLeads.map(a => a.url)).includes(newItem.url)){
                 setMyLeads([...myLeads, newItem])
             }
-
+            // document.body.innerText has all the words on the page stored
             console.log(document.body.innerText)
         })
         e.preventDefault();
     }
+        //Trying to display Main Topics
+        //'
+        var htmlString = '<head><title>topic of page</title></head><body><p>Some text, in a paragraph!</p></body>',
+        html = document.createElement('html'),
+        frag = document.createDocumentFragment();
+        html.innerHTML = htmlString;
+        frag.appendChild(html);
+    
+        var titleText = frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText;
+        console.log(titleText)
+    
+        // //JAVASCRIPT parsing through the webpage 
+        // const source = document.getElementById("source");
+        // const textContentOutput = document.getElementById("textContentOutput");
+        // const innerTextOutput = document.getElementById("innerTextOutput");
+        
+        // textContentOutput.value = source.textContent;
+        // innerTextOutput.value = source.innerText;
 
     // Deletes all URLs in list
     function deleteAllURL() {
