@@ -24,7 +24,8 @@
   }],
   "permissions" : [
     "activeTab",
-    "contextMenus"
+    "contextMenus",
+    "scripting"
   ],
   "optional_permissions": [
     "<all_urls>"
