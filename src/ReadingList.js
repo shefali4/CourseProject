@@ -55,6 +55,7 @@ export default function Site() {
         <div>
             <button onClick={addURL} className="save-button" type="submit" >+</button>
             <button onClick={deleteAllURL} id="delete-btn" type="button" >DELETE ALL</button>
+            <button onClick={(event) => console.log(event._dispatchInstances.memoizedProps.children)} id="text-try" type="button" >text</button>
             <div className="ent">
                 {myLeads && myLeads.map((item, id) => (
                     <div className="withb">
