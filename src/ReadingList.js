@@ -76,7 +76,7 @@ export default function Site() {
                 html.innerHTML = htmlString;
                 frag.appendChild(html);
 
-                var titleText2 = frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText;
+                //var titleText2 = frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText;
                 fragment_2 = frag;
 
 
@@ -99,7 +99,7 @@ export default function Site() {
                 setMyLeads([...myLeads, newItem])
             }
             // document.body.innerText has all the words on the page stored
-            console.log(document.body.innerText)
+            // console.log(document.body.innerText)
         })
         e.preventDefault();
     }
