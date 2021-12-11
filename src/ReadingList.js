@@ -55,16 +55,7 @@ export default function Site() {
                     }
                     return mostRepeatedWord;
                 }
-
-                // new result printing on the extension
-                // var htmlString = '<head><title>main word/topic: ' + new_result + '</title></head>',
-                //     html = document.createElement('html'),
-                //     f = document.createDocumentFragment();
-
-                // html.innerHTML = htmlString;
-                // f.appendChild(html);
-
-                // setFrag(f)
+                
                 setFrag(new_result)
             });
 
