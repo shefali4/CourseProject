@@ -15,6 +15,7 @@
   .witht {
     display: flex;
     flex-flow: column nowrap;
+    background-color:#ebebeb;
     .withb{
       display: flex;
       flex-flow: row nowrap;
@@ -27,15 +28,16 @@
     
         .entry {
           text-align: left;
-         background-color: #ebebeb;
-         display: flex;
+          background-color: #ebebeb;
+          display: flex;
           flex-flow: column nowrap;
-         padding: 12px;
+          padding: 12px;
+          padding-bottom:0px;
 
           .prof{
             display: inline-flex;
             flex-flow: row nowrap;
-           align-items: center;
+            align-items: center;
 
            .favicon-img {
               height: 30px;
@@ -55,9 +57,7 @@
             }
           }
         }
-     }
-    
-
+      }
      .but{
        border: none;
         background-color:#ebebeb;
@@ -66,12 +66,27 @@
       .but:hover{
         background-color:#b1b1b1;
       }
-    
    }
+    .top-but{
+      background-color: #282c34;
+      border:none;
+      color: white;
+      text-align: center;
+      border-radius:12px;
+      margin: 2px 5px 2px 12px;
+      display: inline-block;
+      width: fit-content;
+
+      .but-top {
+        background-color: transparent;
+        border: none;
+        color: white;
+      }
+    }
     .textbox{
       border: none;
       background-color:#ebebeb;
-      width: 30px;
+      padding-bottom:5px;
     }
   }
 }

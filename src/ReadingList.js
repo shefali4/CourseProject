@@ -57,13 +57,15 @@ export default function Site() {
                 }
 
                 // new result printing on the extension
-                var htmlString = '<head><title>main word/topic: ' + new_result + '</title></head>',
-                    html = document.createElement('html'),
-                    f = document.createDocumentFragment();
+                // var htmlString = '<head><title>main word/topic: ' + new_result + '</title></head>',
+                //     html = document.createElement('html'),
+                //     f = document.createDocumentFragment();
 
-                html.innerHTML = htmlString;
-                f.appendChild(html);
-                setFrag(f)
+                // html.innerHTML = htmlString;
+                // f.appendChild(html);
+
+                // setFrag(f)
+                setFrag(new_result)
             });
 
     }, [myLeads]);
@@ -72,7 +74,7 @@ export default function Site() {
     function addURL(e) {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             const newItem = {
-                titleText2: frag.firstChild.getElementsByTagName('title')[0].textContent || frag.firstChild.getElementsByTagName('title')[0].innerText,
+                titleText2: [frag],
                 shorturl: shortenURL(tabs[0].url),
                 url: tabs[0].url,
                 title: tabs[0].title,
@@ -82,17 +84,6 @@ export default function Site() {
             if (!(myLeads.map(a => a.url)).includes(newItem.url)) {
                 setMyLeads([...myLeads, newItem])
             }
-            var input = document.getElementById('input');
-            input.addEventListener("keyup", function (event) {
-                event.preventDefault();
-                if (event.keyCode === 13) {
-                    var usert = document.getElementById("input").value
-                    newItem.titleText2 += ", " + usert
-                    setMyLeads([...myLeads, newItem])
-                    var curt = document.getElementById("input")
-                    curt.remove();
-                }
-            })
         })
     }
 
@@ -112,6 +103,35 @@ export default function Site() {
         return (new URL(url)).hostname;
     }
 
+    function deleteTopic(e, tit) {
+        e.preventDefault()
+
+        let path = e.target.value
+        
+        let newArr = [...myLeads]
+        let ind = newArr.findIndex((obj => obj.url === path));
+
+        let indInd = (newArr[ind].titleText2).indexOf(tit);
+        if (indInd > -1) {
+            (newArr[ind].titleText2).splice(indInd, 1);
+        }
+
+        setMyLeads(newArr)
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        let top = e.target.topic.value
+        let path = e.target.url.value
+        
+        let newArr = [...myLeads]
+        let ind = newArr.findIndex((obj => obj.url === path));
+        if (!(newArr[ind].titleText2.includes(top))) {
+            newArr[ind].titleText2.push(top)
+        }
+        setMyLeads(newArr)
+    }
+
     return (
         <div>
             <button onClick={addURL} className="save-button" type="submit" >+</button>
@@ -120,29 +140,33 @@ export default function Site() {
                 {myLeads && myLeads.map((item, id) => (
                     <div className="witht" >
                         <div className="withb" id='curtab'>
-                            <a className="hyperlink" target='_blank' href={item.url}>
+                            <div className="hyperlink">
                                 <div onClick={item.url} className="entry" key={id}>
                                     <div className="prof">
                                         <img className="favicon-img" src={item.fav} />
-                                        <div className="ti">
-                                            <b className="title"> {item.title} </b>
-                                            <p> {item.shorturl} </p>
-                                        </div>
+                                        <a className="hyperlink" target='_blank' href={item.url}>
+                                            <div className="ti">
+                                                <b className="title"> {item.title} </b>
+                                                <p> {item.shorturl} </p>
+                                            </div>
+                                        </a>
                                     </div>
-                                    <a className="titleText"> {item.titleText2} </a>
                                 </div>
-                            </a>
+                            </div>
                             <button value={item.url} onClick={deleteSingle} type="button" className="but" aria-label="Close">X</button>
                         </div>
-                        <div className="textbox">
-                            <input type="text" name="name" placeholder='Your topic (enter to save)' id='input' />
-                        </div>
+                        {item.titleText2 && item.titleText2.map((tit, idtit) => (
+                            <div className="top-but">
+                                <button value={item.url} onClick={(e) => deleteTopic(e,tit)} type="button" className="but-top" aria-label="Close">{tit + " x"} </button>
+                            </div>
+                        ))}
+                        <form onSubmit={handleSubmit} className="textbox">
+                            <input type="text" name="topic" placeholder="Add Topic"/>
+                            <button type="submit" value={item.url} name="url">add</button>
+                        </form>
                     </div>
                 ))}
-
-
             </div>
-
         </div >
     );
 }
