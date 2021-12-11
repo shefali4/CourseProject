@@ -12,54 +12,66 @@
   padding: 12px;
   gap:5px;
   border-radius: 5%;
-
-  .withb{
+  .witht {
     display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    flex-flow: column nowrap;
+    .withb{
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
 
-    .hyperlink {
-      text-decoration: none;
-      color: black;
-      width: 100%;
+      .hyperlink {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        width: 100%;
     
-      .entry {
-        text-align: left;
-        background-color: #ebebeb;
-        display: flex;
-        flex-flow: column nowrap;
-        padding: 12px;
+        .entry {
+          text-align: left;
+         background-color: #ebebeb;
+         display: flex;
+          flex-flow: column nowrap;
+         padding: 12px;
 
-        .prof{
-          display: inline-flex;
-          flex-flow: row nowrap;
-          align-items: center;
+          .prof{
+            display: inline-flex;
+            flex-flow: row nowrap;
+           align-items: center;
 
-          .favicon-img {
-            height: 30px;
-            width: 30px; 
-            padding: 5px;
-            object-fit: cover;
-          }
+           .favicon-img {
+              height: 30px;
+              width: 30px; 
+              padding: 5px;
+              object-fit: cover;
+           }
       
-          .ti {
-            display: flex;
-            flex-flow: column nowrap;
-    
-            .title {
-              text-align: left;
+            .ti {
+              display: flex;
+              flex-flow: column nowrap;
+            
+              .title {
+                text-align: left;
+              }
+
             }
           }
         }
-      }
-    }
+     }
+    
 
-    .but{
+     .but{
+       border: none;
+        background-color:#ebebeb;
+     }
+
+      .but:hover{
+        background-color:#b1b1b1;
+      }
+    
+   }
+    .textbox{
       border: none;
       background-color:#ebebeb;
-    }
-    .but:hover{
-      background-color:#b1b1b1;
+      width: 30px;
     }
   }
 }
@@ -71,7 +83,6 @@
 p {
   margin: 0px;
 }
-
 
 
 
