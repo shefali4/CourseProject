@@ -28,9 +28,7 @@ We have the functions:
 * deleteTopic(e, topic) : Function that deletes the topic option in the chrome extension pop-up. It allows users to select which topic they want to delete (whether it be the original topic, or one that they manually added). Parameter: Event e, topic. Returns: nothing
 * handleSubmit(e) :  function controls the functionality when the input text box submit button is clicked. Parameter: Event e. Returns: nothing
 * findMostRepeatedWord(result): function that takes in the web scraped words as a single string and parses through the words to find the main topic of the page. Parameter: String result. Return: nothing. 
-And the useEffect running important code for the storage of the user’s information and scraping of the webpage with the extension.
-
-
+* The useEffect is another important React feature, that is used generally for data fetching when we need to "await" for data. So here we run code for storing the entries and scraping webpage's text data for the extension.
 
 ### 3) Instructions to Run/Install
 
