@@ -2,71 +2,44 @@
 
 ## Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### 1) Overview
 
-In the project directory, you can run:
+In general, our group’s chrome extension serves the purpose to allow users to save and bookmark articles with topic/text analysis for later viewing. There are two buttons which control a large portion of the chrome extension. First, the “+” button adds an entry to the list containing information like the article’s title, a hyperlinked url, and the tab icon. The second button is the delete all button which deletes all the entries in the list. Other functionalities include deleting individual entries from the list, preventing repeated urls, and displaying the domain name of the larger URL. The most common word which can be understood as the topic of an article is also automatically calculated from the bookmarked article, and users can add or delete their own topics.
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 2) Software Implementation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+One of the main important components of a chrome extension are the inclusions in the public folder, specifically the manifest.json. As described by the docs, the manifest.json is a JSON file in the extension that tells the browser about the extension on user's desktop. Chrome extensions require the manifest to be able to add the extension to chrome.  While developing this app we used manifest_version 2, and made sure to include all the necessary permissions and naming required by the extension.
+The next major files are the files that are automatically in React apps once created. The files that we added logic to include the App.js, App.scss, ReadingList.js, and ReadingList.scss. Important files to understand in the React app is the package.json and index.js. The index.js in the hierarchy of files, is at the top and calls the App.js and renders the whole project from all the other functions that we return html code from. The package.json is important because it includes information about dependencies - like defining project properties, description, author & license information, scripts, etc. It records important metadata about a project which is required before publishing to NPM, and also defines functional attributes of a project that npm uses to install dependencies, run scripts, and identify the entry point to our package. So when first downloading a react/node app, rather than always inducing the hundreds of files in the node_modules folder, the package.json includes the necessary libraries and developers simple have to run npm install.
+App.js is generally used as the overview App function that calls the different pages/components that build the app. So here you see the name of the app and the call to the ReadingList component. Styling for the html returned can be found in the App.scss file. If one would want to expand on this project they would be able to add additional components and call them in App.js. For our focused project 
+Reading,js is where we have all our logic for the bookmark functionality of the project. We have the functions:
+addUrl() : function that saves objects containing attributes such a shortened URL, the original URL, the article title, and the tab’s icon image link. Then these objects are added to a list. Parameter: nothing. Returns: nothing
+deleteAllURL() : function that deletes all URL’s stored in the chrome extension pop-up. The button on the pop-up triggers the function, which erases the history of the URL’s. Parameter: nothing. Returns: nothing
+deleteSingle(e) :function that the URL stored in the chrome extension pop-up. The button on the pop-up triggers the function, which erases the history of the specific URL needed to be deleted. Parameter: nothing. Returns: all the url’s except the deleted one
+shortenURL(url) : function that displays the shortened version of the URL to be displayed on the chrome extension pop-up. Removes unnecessary characters from the original link at the end. Parameter: URL. Returns: shortened URL.
+deleteTopic(e, topic) : Function that deletes the topic option in the chrome extension pop-up. It allows users to select which topic they want to delete (whether it be the original topic, or one that they manually added). Parameter: Event e, topic. Returns: nothing
+handleSubmit(e) :  function controls the functionality when the input text box submit button is clicked. Parameter: Event e. Returns: nothing
+findMostRepeatedWord(result): function that takes in the web scraped words as a single string and parses through the words to find the main topic of the page. Parameter: String result. Return: nothing. 
+And the useEffect running important code for the storage of the user’s information and scraping of the webpage for with the extension.
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### 3) Instructions to Run/Install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In order to install the software onto your local machine, first locate the github repository which can be found here: https://github.com/shefali4/CourseProject/tree/react. Next, locate the “Code” dropdown menu and click the option that says “Download ZIP.” Then open a new tab and navigate to chrome://extensions/. Turn on "Developer Mode" and click the "Load unpacked" button at the top right corner. Select the downloaded directory and now you are all set. You can also pin the extension for easy access as well.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Watch this video presentation on the full process to download and implement this chrome extension:  youtube link
+Here is the example article we use in the video: https://coronavirus.medium.com/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 4) Description of Contribution
+Brief description of contribution of each team member in case of a multi-person team
 
-### `npm run eject`
+Shefali - My contributions started with creating an algorithm to append URLs to the list on the back end. Once my team member helped to render this on the front end, I improved the user interface by creating boxes for each entry and adding logic to the chrome extension to display the URL’s title, icon, and a hyperlinked box. Additionally, I contributed by working to save the data in the chrome extension using local storage. I also collaborated with my teammate to create a URL shortening function to only display the domain name and created an algorithm to prevent a user from repeating a URL in the list.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Ashwini - For this project I was mainly in charge of assignment of tasks and making sure everyone was able to finish their parts for the project. I create the project in react in the beginning and spend a lot of time researching how it works then working with my team on all parts of the project trying to help troubleshoot whenever they run into problems. With my teammate I was able to help render the addition of URLS to help jumpstart the frontend. And helped clean up the backend logic for this functionality. For the ranking of topic analysis, I helped with figuring out how to scrape the website for text and aiding in cleaning  the backend with creating useState variables. In regards to adding and editing the topic tags, I aided in the css styling as well as the backend logic of inputting, saving, and deleting.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Mounika - My contribution to the project was implementing the resulting words from the scraped text from the webpage. After Ashwini was able to scrape the webpage and store it in the String object I went in to parse the string to print out the main topic of the page. I made a sample dummy function that counts the occurrence of the words to be able to test if I can pass through the string. Once it worked, I made another property to the item object and added a TextTitle attribute that renders the backend word to be able to display on the chrome extension. I was able to add the words under the tab that displayed the topic of the webpage. And adjusted the UI such that it is in the correct position and size of the display.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Chi- My contribution to the project was to improve the result we have got from Mounika. I added a string of stopwords and parsed it into an array of words. Then I check the word we have got with the bank of stop words to make sure the word is basically meaningful.  I also worked on the creation of topic tags. Allowing users to add and delete the tags by their choice in addition to the precomputed tag.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
