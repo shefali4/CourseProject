@@ -60,7 +60,7 @@ export default function Site() {
     }, [myLeads]);
 
     // Adds URL to list
-    function addURL(e) {
+    function addURL() {
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
             const newItem = {
                 titleText2: [frag],
@@ -92,7 +92,7 @@ export default function Site() {
         return (new URL(url)).hostname;
     }
 
-    function deleteTopic(e, tit) {
+    function deleteTopic(e, topic) {
         e.preventDefault()
 
         let path = e.target.value
@@ -100,7 +100,7 @@ export default function Site() {
         let newArr = [...myLeads]
         let ind = newArr.findIndex((obj => obj.url === path));
 
-        let indInd = (newArr[ind].titleText2).indexOf(tit);
+        let indInd = (newArr[ind].titleText2).indexOf(topic);
         if (indInd > -1) {
             (newArr[ind].titleText2).splice(indInd, 1);
         }
