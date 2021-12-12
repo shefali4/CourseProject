@@ -1,7 +1,5 @@
-import { Tune } from '@material-ui/icons'
 import React from 'react'
 import { useState, useEffect } from 'react'
-// import { text } from './stopwords.js';
 import './ReadingList.scss'
 
 /*globals chrome*/
@@ -55,7 +53,7 @@ export default function Site() {
                     }
                     return mostRepeatedWord;
                 }
-                
+
                 setFrag(new_result)
             });
 
