@@ -144,9 +144,10 @@ export default function Site() {
                             </div>
                             <button value={item.url} onClick={deleteSingle} type="button" className="but" aria-label="Close">X</button>
                         </div>
-                        {item.titleText2 && item.titleText2.map((tit, idtit) => (
+                        {item.titleText2 && item.titleText2.map((topic, idtit) => (
                             <div className="top-but">
-                                <button value={item.url} onClick={(e) => deleteTopic(e,tit)} type="button" className="but-top" aria-label="Close">{tit + " x"} </button>
+                                <label>{topic}</label>
+                                <button value={item.url} onClick={(e) => deleteTopic(e,topic)} type="button" className="but-top" aria-label="Close"> x </button>
                             </div>
                         ))}
                         <form onSubmit={handleSubmit} className="textbox">
